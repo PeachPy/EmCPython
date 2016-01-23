@@ -1,0 +1,11 @@
+# Ninja logs
+.ninja_log
+.ninja_deps
+
+# Generated object/assembly files
+*.bc
+peachpy.asm.js
+
+# Vim backups
+._*
+

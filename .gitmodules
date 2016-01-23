@@ -1,0 +1,6 @@
+[submodule "Python-2.7"]
+	path = Python-2.7
+	url = git@github.com:PeachPy/Python-2.7.git
+[submodule "libtar"]
+	path = libtar
+	url = git@github.com:PeachPy/libtar.git

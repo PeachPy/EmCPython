@@ -1,0 +1,9 @@
+# Installed files
+emscripten/
+
+# Generated files
+*.tar
+
+# Build files
+test/python.asm.js
+test/python.asm.js.mem

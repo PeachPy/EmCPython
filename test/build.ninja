@@ -1,0 +1,27 @@
+emscripten_usr_dir = ../emscripten
+cc = emcc
+optflags = -O2
+cflags = -std=gnu99 $optflags -g -I. -I$emscripten_usr_dir/include -I$emscripten_usr_dir/include/python2.7 -Wno-warn-absolute-paths
+ldflags = -L$python_root -L$emscripten_usr_dir/lib $optflags -Wno-warn-absolute-paths
+emflags = $
+  -s TOTAL_MEMORY=268435456 $
+  -s ASSERTIONS=2 $
+  -s FS_LOG=1
+
+ldlibs = $emscripten_usr_dir/lib/libpython2.7.a $emscripten_usr_dir/lib/libtar.a
+
+rule cc
+  command = $cc -o $out -c $in -MMD -MF $out.d $cflags
+  deps = gcc
+  depfile = $out.d
+  description = CC $in
+
+rule ccld
+  command = $cc -o $asmjs $ldflags $emflags --embed-file $embed@/pydata.tar $objs $ldlibs
+  description = CCLD $asmjs
+
+build main.bc : cc main.c
+build python.asm.js python.asm.js.mem : ccld main.bc ../pydata.tar
+  asmjs = python.asm.js
+  objs = main.bc
+  embed = ../pydata.tar
