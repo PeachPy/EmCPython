@@ -6,10 +6,18 @@ EMSCRIPTEN_USR_DIR=$PWD/emscripten
 PYTHON_DIR=$PWD/Python-2.7
 BUILD_TRIPPLE=$(${PYTHON_DIR}/config.guess)
 
+OSNAME=$(uname -s)
+if [ "${OSNAME}" == "Linux" ]
+then
+	PYTHON_BINARY=python
+else
+	PYTHON_BINARY=python.exe
+fi
+
 pushd "${PYTHON_DIR}"
 ./configure
-make python Parser/pgen
-mv python hostpython
+make ${PYTHON_BINARY} Parser/pgen
+mv ${PYTHON_BINARY} hostpython
 mv Parser/pgen Parser/hostpgen
 make distclean
 
