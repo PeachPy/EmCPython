@@ -1,11 +1,11 @@
 # EmCPython
-Emscripten port of CPython. Currently builds, but does not work.
+A working Emscripten port of CPython.
 
 # Build
 
 - Install [Emscripten SDK](https://kripken.github.io/emscripten-site/docs/tools_reference/emsdk.html), make sure `emcc`, `emmake`, and setup environment variables.
 
-- Clone EMCPython repository with submodules: `git clone --recursive https://github.com/PeachPy/EmCPython.git`
+- Clone EmCPython repository with submodules: `git clone --recursive https://github.com/PeachPy/EmCPython.git`
 
 - Switch to EmCPython directory: `cd EmCPython`.
 
