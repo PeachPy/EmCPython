@@ -13,6 +13,7 @@ operator operator.c	# operator.add() and similar goodies
 _random _randommodule.c	# Random number generator
 _collections _collectionsmodule.c # Container types
 _functools _functoolsmodule.c	# Tools for working with functions and callable objects
+itertools itertoolsmodule.c    # Functions creating iterators for efficient looping
 _bisect _bisectmodule.c	# Bisection algorithms
 
 _json _json.c
