@@ -8,15 +8,51 @@ import argparse
 excluded_patterns = [
 	"*.pyc", "*.pyo", "*.so", "*.pc", "*.a", "*.la",
 	"lib/python2.7/BaseHTTPServer.py",
+	"lib/python2.7/Bastion.py",
+	"lib/python2.7/Cookie.py",
 	"lib/python2.7/CGIHTTPServer.py",
 	"lib/python2.7/DocXMLRPCServer.py",
 	"lib/python2.7/HTMLParser.py",
 	"lib/python2.7/MimeWriter.py",
 	"lib/python2.7/SimpleHTTPServer.py",
 	"lib/python2.7/SimpleXMLRPCServer.py",
+	"lib/python2.7/SocketServer.py",
+	"lib/python2.7/_LWPCookieJar.py",
+	"lib/python2.7/_MozillaCookieJar.py",
+	"lib/python2.7/__phello__.foo.py",
+	"lib/python2.7/_threading_local.py",
+	"lib/python2.7/aifc.py",
 	"lib/python2.7/antigravity.py",
+	"lib/python2.7/anydbm.py",
+	"lib/python2.7/decimal.py",
+	"lib/python2.7/doctest.py",
+	"lib/python2.7/mailbox.py",
+	"lib/python2.7/difflib.py",
+	"lib/python2.7/cookielib.py",
+	"lib/python2.7/optparse.py",
+	"lib/python2.7/nturl2path.py",
 	"lib/python2.7/os2emxpath.py",
-	"lib/python2.7/_osx_support.py"
+	"lib/python2.7/_osx_support.py",
+	"lib/python2.7/pydoc.py",
+	"lib/python2.7/robotparser.py",
+	"lib/python2.7/sndhdr.py",
+	"lib/python2.7/stringold.py",
+	"lib/python2.7/stringprep.py",
+	"lib/python2.7/subprocess.py",
+	"lib/python2.7/sunau.py",
+	"lib/python2.7/sunaudio.py",
+	"lib/python2.7/tabnanny.py",
+	"lib/python2.7/tarfile.py",
+	"lib/python2.7/telnetlib.py",
+	"lib/python2.7/threading.py",
+	"lib/python2.7/toaiff.py",
+	"lib/python2.7/wave.py",
+	"lib/python2.7/webbrowser.py",
+	"lib/python2.7/whichdb.py",
+	"lib/python2.7/xdrlib.py",
+	"lib/python2.7/xmllib.py",
+	"lib/python2.7/xmlrpclib.py",
+	"lib/python2.7/uu.py",
 ]
 included_patterns = ["*.py"]
 
@@ -31,6 +67,7 @@ excluded_directories = [
 	"lib/python2.7/test",
 	"lib/python2.7/idlelib",
 	"lib/python2.7/lib-tk",
+	"lib/python2.7/ensurepip",
 	"lib/python2.7/distutils",
 	"lib/python2.7/lib2to3",
 	"lib/python2.7/wsgiref",
@@ -42,6 +79,7 @@ excluded_directories = [
 	"lib/python2.7/config",
 	"lib/python2.7/sqlite3",
 	"lib/python2.7/curses",
+	"lib/python2.7/json/tests",
 	"share",
 	"include",
 ]
@@ -53,9 +91,8 @@ def check_directories(filename):
 def main(prefix_dir, output_path):
 	filtered_filenames = []
 	for (directory, _, filenames) in os.walk(prefix_dir):
-		filenames = filter(check_filename, filenames)
-		absolute_filenames = [os.path.join(directory, filename) for filename in filenames]
-		relative_filenames = [os.path.relpath(filename, prefix_dir) for filename in absolute_filenames]
+		relative_filenames = filter(check_filename, [os.path.relpath(os.path.join(directory, filename), prefix_dir) for filename in filenames])
+		absolute_filenames = [os.path.join(prefix_dir, filename) for filename in relative_filenames]
 		filtered_filenames += filter(check_directories, relative_filenames)
 
 	with tarfile.open(name=output_path, mode='w') as tar_file:
